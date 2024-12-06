@@ -1,8 +1,8 @@
-import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+import streamlit as st
 
-# Define function for calculations
+# Function to perform calculations and generate the plot
 def plot_signals(alpha=0.3, tau2=0.2, tau3=0.2, r_values=(0.2, 0.4, 0.6, 0.8), width=1000, height=70):
     z = np.linspace(1, 100, 100)
     k3 = z.copy()
@@ -22,17 +22,13 @@ def plot_signals(alpha=0.3, tau2=0.2, tau3=0.2, r_values=(0.2, 0.4, 0.6, 0.8), w
         k3[i] = cdf3[i] / z[i]
 
     # Plot pdf3 vs z
-    plt.figure(figsize=(12, 8))
-    plt.subplot(2, 1, 1)
-    plt.plot(pdf3, z, label='pdf3 vs z', color='b')
-    plt.xlabel("Ozone Concentration PDF")
-    plt.ylabel("Non-dimensional Geometric Height")
-    plt.title("PDF of Ozone Concentration")
-    plt.grid(True)
-    plt.legend()
-
-    # Plot k3 vs z
-    plt.subplot(2, 1, 2)
+    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+    ax[0].plot(pdf3, z, label='pdf3 vs z', color='b')
+    ax[0].set_xlabel("Ozone Concentration PDF")
+    ax[0].set_ylabel("Non-dimensional Geometric Height")
+    ax[0].set_title("PDF of Ozone Concentration")
+    ax[0].grid(True)
+    ax[0].legend()
 
     # Loop over different r values
     for r in r_values:
@@ -48,27 +44,25 @@ def plot_signals(alpha=0.3, tau2=0.2, tau3=0.2, r_values=(0.2, 0.4, 0.6, 0.8), w
         )
 
         # Plot sig_cloud vs z
-        plt.plot(sig_cloud / sig_clear - 1, z, label=f'r = {r}')
+        ax[1].plot(sig_cloud / sig_clear - 1, z, label=f'r = {r}')
 
     # Add labels and title
-    plt.axvline(0, color='k', linestyle='--')
-    plt.title('Non-dimensional Parameter Test')
-    plt.xlabel('Signal Relative Difference')
-    plt.ylabel('Scaled z')
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+    ax[1].axvline(0, color='k', linestyle='--')
+    ax[1].set_title('Non-dimensional Parameter Test')
+    ax[1].set_xlabel('Signal Relative Difference')
+    ax[1].set_ylabel('Scaled z')
+    ax[1].legend()
+    ax[1].grid(True)
 
+    st.pyplot(fig)
 
-# Add Streamlit sliders for user interaction
+# Create interactive widgets in Streamlit
 alpha = st.slider('Alpha', 0.1, 1.0, 0.3, step=0.05)
 tau2 = st.slider('Tau2', 0.05, 1.0, 0.2, step=0.05)
 tau3 = st.slider('Tau3', 0.05, 1.0, 0.2, step=0.05)
+r_values = st.multiselect('r values', [0.2, 0.4, 0.6, 0.8], default=[0.2, 0.4, 0.6, 0.8])
 width = st.slider('Width', 1, 1000, 1000)
 height = st.slider('Height', 0, 100, 70)
-r_values = st.multiselect('r values', [0.2, 0.4, 0.6, 0.8], default=[0.2, 0.4, 0.6, 0.8])
 
-# Plot with given parameters
+# Plot with the given parameters
 plot_signals(alpha, tau2, tau3, r_values, width, height)
-
