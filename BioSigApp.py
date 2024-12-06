@@ -58,12 +58,12 @@ def plot_signals(alpha=0.3, tau2=0.2, tau3=0.2, r_values=(0.2, 0.4, 0.6, 0.8), w
     st.pyplot(fig)
 
 # Create interactive widgets in Streamlit
-alpha = st.slider('Alpha', 0.1, 1.0, 0.3, step=0.05)
-tau2 = st.slider('Tau2', 0.05, 1.0, 0.2, step=0.05)
-tau3 = st.slider('Tau3', 0.05, 1.0, 0.2, step=0.05)
-r_values = st.multiselect('r values', [0.2, 0.4, 0.6, 0.8], default=[0.2, 0.4, 0.6, 0.8])
-width = st.slider('Width', 100, 100000, 1000)
-height = st.slider('Height', 0, 100, 70)
+alpha = st.slider('Surface albedo', 0.1, 1.0, 0.3, step=0.05)
+tau2 = st.slider('Backgroud gas optical depth', 0.05, 1.0, 0.2, step=0.05)
+tau3 = st.slider('Targeting gas optical depth', 0.05, 1.0, 0.2, step=0.05)
+r_values = st.multiselect('cloud reflectivity', [0.2, 0.4, 0.6, 0.8], default=[0.2, 0.4, 0.6, 0.8])
+width = st.slider('Target gas distribution width', 100, 100000, 1000)
+height = st.slider('Targeting gas height', 0, 100, 70)
 
 # Plot with the given parameters
 plot_signals(alpha, tau2, tau3, r_values, width, height)
