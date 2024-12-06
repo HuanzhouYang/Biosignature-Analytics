@@ -23,7 +23,7 @@ def plot_signals(alpha=0.3, tau2=0.2, tau3=0.2, r_values=(0.2, 0.4, 0.6, 0.8), w
         k3[i] = cdf3[i] / z[i]
 
     # Plot pdf3 vs z
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+    fig, ax = plt.subplots(2, 1, figsize=(12, 12))
     plt.subplots_adjust(hspace=0.5)
     ax[0].plot(pdf3, z, label='pdf3 vs z', color='b')
     ax[0].set_xlabel("Ozone Concentration PDF")
