@@ -62,7 +62,7 @@ alpha = st.slider('Alpha', 0.1, 1.0, 0.3, step=0.05)
 tau2 = st.slider('Tau2', 0.05, 1.0, 0.2, step=0.05)
 tau3 = st.slider('Tau3', 0.05, 1.0, 0.2, step=0.05)
 r_values = st.multiselect('r values', [0.2, 0.4, 0.6, 0.8], default=[0.2, 0.4, 0.6, 0.8])
-width = st.slider('Width', 1, 1000, 1000)
+width = st.slider('Width', 100, 100000, 1000)
 height = st.slider('Height', 0, 100, 70)
 
 # Plot with the given parameters
